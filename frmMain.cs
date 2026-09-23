@@ -58,6 +58,8 @@ namespace WinForms_Template
             row1.SubItems.Add((_product.Value.unitPrice * _quantity).ToString());
 
             lvReceipt.Items.Add(row1);
+
+            //I was here
         }
     }
 }
