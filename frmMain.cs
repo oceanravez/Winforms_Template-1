@@ -41,11 +41,12 @@ namespace WinForms_Template
             }
         }
 
-        private void RecordProduct(string code) {
+        private void RecordProduct(string code)
+        {
 
             int _quantity = 1;
             Product? _product = productList.GetProduct(code);
-            if(_product == null)
+            if (_product == null)
             {
                 //Show Error
                 return;
@@ -58,8 +59,33 @@ namespace WinForms_Template
             row1.SubItems.Add((_product.Value.unitPrice * _quantity).ToString());
 
             lvReceipt.Items.Add(row1);
-
-            //I was here
         }
+
+
+
+        private void ChangeQuantity()
+        {
+            string quantityValue = txtProduct.Text;
+            if (int.TryParse(quantityValue, out int quantity))
+            {
+                if (quantity < 1 || quantity > 100)
+                {
+                    //show an error message
+                }
+                else
+                {
+                    ListViewItem latestItem = lvReceipt.Items[lvReceipt.Items.Count - 1];
+                    latestItem.SubItems[3].Text = quantity.ToString();
+                    latestItem.SubItems[4].Text = (float.Parse(latestItem.SubItems[2].Text) * quantity).ToString();
+                }
+            }
+            txtProduct.Text = "";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ChangeQuantity();
+        }
+
     }
 }
