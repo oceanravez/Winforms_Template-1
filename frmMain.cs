@@ -37,19 +37,19 @@ namespace WinForms_Template
             {
                 case Keys.Return:
                     RecordProduct(txtProduct.Text);
+                    txtProduct.Text = "";
                     break;
             }
         }
 
-        private void RecordProduct(string code)
+        private bool RecordProduct(string code)
         {
-
             int _quantity = 1;
             Product? _product = productList.GetProduct(code);
             if (_product == null)
             {
-                //Show Error
-                return;
+                //show error
+                return false;
             }
 
             ListViewItem row1 = new ListViewItem(code);
@@ -59,6 +59,7 @@ namespace WinForms_Template
             row1.SubItems.Add((_product.Value.unitPrice * _quantity).ToString());
 
             lvReceipt.Items.Add(row1);
+            return true;
         }
 
 
@@ -70,7 +71,7 @@ namespace WinForms_Template
             {
                 if (quantity < 1 || quantity > 100)
                 {
-                    //show an error message
+                    Console.WriteLine("Invalid quantity. Please input a value between 1 and 100.");
                 }
                 else
                 {
